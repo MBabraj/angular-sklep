@@ -1,0 +1,8 @@
+<form>
+	<label for="name" >Odbiorca </label>
+	<input  type="text" name="name" [(ngModel)]="name"/>
+	<br>
+	<label for="address">Adres</label>
+	<input type="text" name= "address" [(ngModel)]="address"/>
+	<button type="submit" [disabled]="!isValid()">Prześlij</button>
+</form>

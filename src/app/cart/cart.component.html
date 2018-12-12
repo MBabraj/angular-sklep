@@ -1,0 +1,10 @@
+KOSZYK:
+
+<div class="container">
+	<div class="row" *ngFor="let item of getCartProducts()">
+		{{item.name}}  {{item.quantity}}  {{item.quantity*item.price}}
+	</div>
+
+</div>
+
+<a routerLink="/order">Do kasy</a>

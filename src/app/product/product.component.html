@@ -1,0 +1,26 @@
+
+
+<div class="card">
+	<div class="card-body">
+		<h4 class="card-title">{{product.name | uppercase}}</h4>
+
+
+
+		<div class="container productEntity" [ngClass]="{'maxPrice':product.price===maxPrice, 'minPrice':product.price===minPrice}" >
+			<div class="row" [ngStyle]="{'background-color': getBackgroundColor(product.quantity)}">
+				<div class="col-md-8">
+					<div>{{product.name | uppercase}}</div>
+					<div>{{product.description}}</div>
+					<div>Cena: {{product.price | currency:currency}} </div>
+				</div>
+				<div class="col-md-4">
+					<button [disabled]="!isAvailable(product)" (click)="add()">Dodaj</button>
+					<button (click)="remove()">Usuń</button>
+					<div *ngIf="isAvailable(product); else unavailable">Dostępność: {{product.quantity}} sztuk</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

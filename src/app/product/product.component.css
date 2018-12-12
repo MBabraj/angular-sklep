@@ -1,0 +1,15 @@
+.productEntity {
+	border: 3px solid;
+	margin: 3px;
+	border-color: black;
+}
+
+.maxPrice {
+	border: 3px dashed;
+	border-color: #0000e6;
+}
+
+.minPrice {
+	border: 3px dashed;
+	border-color: #ff4dc4;
+}

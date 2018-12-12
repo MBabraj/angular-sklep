@@ -1,0 +1,41 @@
+{
+	"products" : [
+		{
+			"id": 0,
+			"name": "piłka",
+			"quantity": 20,
+			"price": 200,
+			"description": "piłka czarno-biała",
+			"image": "image.jpg",
+			"kategoria": "piłka"
+		},
+		{
+			"id": 1,
+			"name": "buty",
+			"quantity": 10,
+			"price": 600,
+			"description": "buty sportowe",
+			"image": "image2.jpg",
+			"kategoria": "obuwie"
+		},
+		{
+			"id": 2,
+			"name": "kajak",
+			"quantity": 50,
+			"price": 2000,
+			"description": "kajak do pływania",
+			"image": "image3.jpg",
+			"kategoria": "sporty wodne"
+		},
+		{
+			"id": 3,
+			"name": "wiosło",
+			"quantity": 100,
+			"price": 200,
+			"description": "wiosło do kajaka",
+			"image": "image4.jpg",
+			"kategoria": "sporty wodne"
+		}
+
+	]
+}
