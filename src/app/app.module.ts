@@ -16,6 +16,7 @@ import { OrderComponent } from './order/order.component';
 import { FormsModule } from '@angular/forms';
 import { ProductsRestService } from './products/products-rest.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CategoryFilterPipe } from './shared/pipes/category-filter.pipe';
 
 const routes: Routes = [
   {
@@ -46,7 +47,8 @@ const routes: Routes = [
     HeaderComponent,
     NewProductComponent,
     CartComponent,
-    OrderComponent
+    OrderComponent,
+    CategoryFilterPipe
   ],
   imports: [
     BrowserModule,
