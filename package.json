@@ -27,6 +27,7 @@
     "mongoose": "^5.3.15",
     "ngx-bootstrap": "^3.1.2",
     "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
     "serve-static": "^1.13.2",
     "zone.js": "~0.8.26"
   },

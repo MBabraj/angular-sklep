@@ -23,15 +23,15 @@ export class ProductsComponent implements OnInit {
   	private cartService: CartService) { }
 
   ngOnInit() {
-  	this.productsService.getProducts().subscribe(prod => this.productList = prod);
+  	this.productList = this.productsService.getProducts();
   	this.minMaxPrice();
   }
 
 
 
   minMaxPrice(){
-  	this.maxPrice= Math.max(...this.productList.map(p => p.price));
-  	this.minPrice= Math.min(...this.productList.map(p => p.price));
+  	this.maxPrice = Math.max(...this.productList.map(p => p.price));
+  	this.minPrice = Math.min(...this.productList.map(p => p.price));
   }
 
   add(event) {

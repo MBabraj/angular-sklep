@@ -20,9 +20,10 @@ app.use(function(req, res, next) {
 })
 
 app.get('/products', function (req, res) {
-fs.readFile( __dirname + "/" + "product.json", 'utf8', function (err, data) {console.log( data );
-res.end( data );
-});
+	fs.readFile( __dirname + "/" + "product.json", 'utf8', function (err, data) {
+		console.log( data );
+		res.end( data );
+	});
 })
 
 
