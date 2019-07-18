@@ -1,63 +1,65 @@
+const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 var express = require('express');
-// var bodyParser = require('body-parser');
 var app = express();
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://admin:admin1@ds131784.mlab.com:31784/angular-sklep', { useNewUrlParser: true });
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'błąd połączenia...'));
-db.once('open', function() {
-// połączenie udane!
-});
-
-
-var fs = require("fs");
+var bodyParser = require('body-parser');
+var db;
 
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
-})
+});
+app.use(bodyParser.json());       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+	extended: true
+}));
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
 
-app.get('/products', function (req, res) {
-	fs.readFile( __dirname + "/" + "product.json", 'utf8', function (err, data) {
-		console.log( data );
-		res.end( data );
-	});
-})
-
-
-
-// app.use(bodyParser.urlencoded({ extended: false }))
-// app.use(bodyParser.json()); // parse application/json
-
-var Schema = mongoose.Schema;
-var ProductSchema = new Schema({
-	id: Number,
-	name: String,
-	quantity: Number,
-	price: Number,
-	description: String,
-	image: String,
-	category: String
+MongoClient.connect('mongodb+srv://app:appuser@sport-stuff-apgxc.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true }, (err, client) => {
+	if (err) return console.log(err);
+	db = client.db('shop')
 });
 
-var prodModel = mongoose.model('Products', ProductSchema);
-
-
-app.get('/', function(req, res) {
-	// var data = prodModel.find();
-	// console.log(data.keys());
-	// res.end();
-
-	var collections = db.db.listCollections(function (e,c) {
-		if (e) {
-			console.log('error');
-		} else {
-			return c.map(col => col.name)
-		}
+app.get('/products', function(req, res) {
+	db.collection('products').find({}).toArray(function(err, results) {
+		console.log(results);
+		res.end(JSON.stringify(results));
 	});
-	console.log(collections);
-	res.end('chuj'+collections);
-})
+});
+
+app.get('/categories', function(req, res) {
+	db.collection('category').find({}).toArray(function(err, results) {
+		console.log(results);
+		if (err) res.send(err);
+		res.end(JSON.stringify(results));
+	});
+});
+
+app.post('/products', function(req, res) {
+	var status = db.collection('products').insertOne(req.body);
+	res.end(JSON.stringify(status));
+});
+
+app.post('/categories', function(req, res) {
+	var status = db.collection('category').insertOne(req.body);
+	res.end(JSON.stringify(status));
+});
+
+app.put('/products/:prodId', function(req, res) {
+	db.collection('product').findOneAndUpdate({_id: new ObjectID(req.params['prodId'])}, (err, result) => {
+		if (err) return res.send(err);
+		res.send(JSON.stringify(result));
+	})
+});
+
+app.put('/categories/:categoryId', function(req, res) {
+	db.collection('category').findOneAndUpdate({_id: new ObjectID(req.params['categoryId'])}, (err, result) => {
+		if (err) return res.send(err);
+		res.send(JSON.stringify(result));
+	})
+});
+
+
 app.listen(5000);
